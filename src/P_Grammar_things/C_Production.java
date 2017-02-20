@@ -45,24 +45,64 @@ public class C_Production {
     public static boolean check_production(String str)
     {
         String meta_chars = "(\\\\\\*|\\\\\\+|\\\\>|\\\\\\\\|\\\\\\||\\\\<|\\\\-)";
-        String t = "(((\\w)+_*(\\w)* | (\\w)*_*(\\w)+|\\w)'?)";
-        String NT_right = "(<" + t + "+" + ">)";            
+        String t = "(((\\w)+_*(\\w)*|\\(|\\)|(\\w)*_*(\\w)+|\\w|)'?)";
+        String NT_right = "(<" + t + "+" + ">)";
         String left_side = "(" + meta_chars + "*" + t  + "+" + "|"+ meta_chars + "+" + t + "*)+";
-        String right_side = "(" + 
-                "("+t +"*" + NT_right + "+|" + t +"+" + NT_right + "*)+"+meta_chars + "*" 
-                + "|" +
-                "("+t +"*" + NT_right + "+|" + t +"+" + NT_right + "*)*"+meta_chars + "+"
-                + ")+";
-        String regex = "^(" + left_side + "->" + right_side + ")$";
-        
-        regex = "^(" + left_side + "->" + right_side + "(\\|("+"~|" + right_side+ ")" + ")*)$";
-        //regex = "\\|";
-        Pattern pattern = Pattern.compile(regex);
         Matcher matcher;
-        
-        matcher = pattern.matcher(str);
-        return matcher.matches();
-    }
+        boolean flag;
 
+        if(count_epsilon(str) > 1)
+            return false;
+        matcher = Pattern.compile("^("+left_side + "->~)$").matcher(str);
+        flag = matcher.matches();
+        
+        if(flag)
+            return flag;
+        if(str.charAt(str.length() -1) =='|' && str.charAt(str.length() - 2) !='\\'  && str.length() > 1)
+            return false ;
+        else
+        {
+            String right_side = "(" +
+                    "("+t +"*" + NT_right + "+|" + t +"+" + NT_right + "*)+"+meta_chars + "*"
+                    + "|" +
+                    "("+t +"*" + NT_right + "+|" + t +"+" + NT_right + "*)*"+meta_chars + "+"+ ")+";
+            
+            String regex = "^(" + left_side + "->" + right_side + "(\\|("+"~|" + right_side+ ")" + ")*)$"; //regex = "^(" + left_side + "->" + right_side + ")$";
+
+            matcher = Pattern.compile(regex).matcher(str);
+            return matcher.matches();
+        }
+        
+        //return false;
+    }
     
+    private static Integer count_epsilon(String str)
+    {
+        int cc = 0;
+        for(char c: str.toCharArray())
+        {
+            if(c =='~')
+                cc++;
+            if(cc>1)
+                return cc;
+        }
+        return cc;
+    }
+    
+    public void load_production(String str)
+    {
+        C_Token nw_token; 
+        String[] pr = str.split("->");
+        
+        nw_token = new C_Token();
+        nw_token.getNt().setSymbol(pr[0]);
+        int dmb = 0;
+    }
 }
+
+
+
+
+
+
+///VeroGarcia123

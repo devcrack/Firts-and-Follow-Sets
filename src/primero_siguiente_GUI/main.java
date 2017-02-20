@@ -6,7 +6,19 @@
 package primero_siguiente_GUI;
 
 import P_Grammar_things.C_Production;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import jdk.jfr.events.FileReadEvent;
 
 /**
  *
@@ -39,11 +51,19 @@ public class main extends javax.swing.JFrame {
         jBtt_Iniciar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMen_It_Nw = new javax.swing.JMenuItem();
         jMenItem_Abrir = new javax.swing.JMenuItem();
         jMenIt_guardar = new javax.swing.JMenuItem();
         jMen_It_Cerrar = new javax.swing.JMenuItem();
+        jMenu_Aiuda = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel_Work_Field.setBorder(javax.swing.BorderFactory.createTitledBorder("Area de Trabajo"));
 
@@ -75,16 +95,46 @@ public class main extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
+        jMen_It_Nw.setText("Nuevo");
+        jMen_It_Nw.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMen_It_NwActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMen_It_Nw);
+
         jMenItem_Abrir.setText("Abrir");
+        jMenItem_Abrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenItem_AbrirActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenItem_Abrir);
 
         jMenIt_guardar.setText("Guardar");
+        jMenIt_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenIt_guardarActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenIt_guardar);
 
         jMen_It_Cerrar.setText("Cerrar");
         jMenu1.add(jMen_It_Cerrar);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu_Aiuda.setText("Ayuda");
+
+        jMenuItem1.setText("La ayuda esta aqui");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu_Aiuda.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu_Aiuda);
 
         setJMenuBar(jMenuBar1);
 
@@ -124,6 +174,10 @@ public class main extends javax.swing.JFrame {
     private void jTxt_Area_wrk_fieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxt_Area_wrk_fieldKeyPressed
         if
         (
+            evt.getKeyChar() == '('
+            ||
+            evt.getKeyChar() == ')'
+            ||
             evt.getKeyChar() =='\''
             ||
             evt.getKeyChar() == '-'
@@ -168,7 +222,10 @@ public class main extends javax.swing.JFrame {
                 this.jTxt_Area_wrk_field.setEditable(flag);
                 
                 if(flag)
-                {}
+                {
+                    C_Production nw_pr = new C_Production();
+                    nw_pr.load_production(lines[lines.length - 1]);
+                }
                 else
                 {
                     Object[] options = {"OK"};
@@ -188,6 +245,108 @@ public class main extends javax.swing.JFrame {
             this.jTxt_Area_wrk_field.setEditable(false);
     }//GEN-LAST:event_jTxt_Area_wrk_fieldKeyPressed
 
+    
+    private void jMenIt_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenIt_guardarActionPerformed
+         JFileChooser jFrame_f_save = new JFileChooser();
+         
+         jFrame_f_save.setApproveButtonText("Guardar");
+         jFrame_f_save.setCurrentDirectory(new File("./Gramaticas"));
+         if(jFrame_f_save.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+         {
+             File file = jFrame_f_save.getSelectedFile();
+             if(!file.getName().endsWith(".g"))
+                 file = new File(file.getAbsolutePath() + ".g");
+             BufferedWriter out_file = null;
+             
+             try
+             {
+                   out_file = new BufferedWriter(new FileWriter(file));
+                   this.jTxt_Area_wrk_field.write(out_file);
+             }
+             catch(IOException ex)
+             {
+                 ex.printStackTrace();
+             }
+             finally
+             {
+                 if(out_file != null)
+                 {
+                     try
+                     {
+                         out_file.close();
+                     }
+                     catch(IOException e)
+                     {
+                         e.printStackTrace();
+                     }
+                 }
+             }
+         }
+    }//GEN-LAST:event_jMenIt_guardarActionPerformed
+
+    private void jMenItem_AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenItem_AbrirActionPerformed
+        JFileChooser jFrame_openFile = new JFileChooser();
+        String str;
+        
+        jFrame_openFile.setCurrentDirectory(new File("./Gramaticas"));
+        jFrame_openFile.showOpenDialog(this);
+        
+        File f = jFrame_openFile.getSelectedFile();
+        FileReader f_rd = null;
+        
+        if(f != null)
+        {
+            try { f_rd = new FileReader(f);}
+            catch(FileNotFoundException ex)
+            {
+                Object[] options = {"OK"};
+                this.n_error = JOptionPane.showOptionDialog(this,
+                        ex.getMessage(),
+                        "ERROR", JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            }
+            BufferedReader reader = new BufferedReader(f_rd);
+            
+            try
+            {
+                this.jTxt_Area_wrk_field.setText(null);
+                while((str = reader.readLine())!=null)
+                     this.jTxt_Area_wrk_field.append(str + "\n");
+            }
+            catch(IOException ex)
+            {
+                Object[] options = {"OK"};
+                this.n_error = JOptionPane.showOptionDialog(this,
+                        ex.getMessage(),
+                        "ERROR", JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            }
+        }
+    }//GEN-LAST:event_jMenItem_AbrirActionPerformed
+
+    
+    /**
+     * 
+     * @param evt 
+     */
+    private void jMen_It_NwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMen_It_NwActionPerformed
+        this.jTxt_Area_wrk_field.setText(null);
+    }//GEN-LAST:event_jMen_It_NwActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+         
+         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Aiuda dlg;
+        
+        dlg = new Aiuda(this, rootPaneCheckingEnabled);
+        dlg.show();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -228,8 +387,11 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenIt_guardar;
     private javax.swing.JMenuItem jMenItem_Abrir;
     private javax.swing.JMenuItem jMen_It_Cerrar;
+    private javax.swing.JMenuItem jMen_It_Nw;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jMenu_Aiuda;
     private javax.swing.JPanel jPanel_Work_Field;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

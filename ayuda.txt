@@ -1,0 +1,49 @@
+* El formato de las producciones siempre tiene que ser
+** Forma #1
+              NO_Terminal->Terminal * No_Terminal+ | Terminal+ No_Terminal*|epsilon
+** Forma #2
+              NO_Terminal->Terminal * No_Terminal+ | Terminal+ No_Terminal*|epsilon
+** Forma #3 
+              NO_Terminal->epsilon
+
+* Manejo de los Metacaracteres
+  Los metacaracteres definidos son:
+  1. +
+  2. -
+  3. >
+  4. <
+  5. \
+  Todos ellos podran ser usados en las producciones siempre y cuando se anteponga '\'
+  Ejemplo:
+  \+
+  \-
+  \\
+  \>
+  \<
+* No Terminales 
+   + Los No terminales pueden ser cualquier tipo de caracteres validos, eso incluye metacaracteres, numeros,minusculas y mayusculas.
+   
+   + Los No terminales definidos en la parte derecha de la produccion siempre van entre los simbolos < >     
+
+   + Los No Terminales definidos en la parte izquierda de la produccion van sin ninguna clase de simbolo.
+    
+   Ejemplo:
+             S-><A>
+	     A-><A'>|<S>
+	     A'->s
+
+   
+   
+* Manejo de Epsilon
+  + El simbolo epsilon o cadena vacia esta definido por el simbolo ~.
+
+  + Cuando el simbolo epsilon se encuentra en una produccion por convencion y por estetica siempre es el ultimo simbolo de la  produccion, 
+    cuando este se encuentra .
+    
+  Ejemplo:
+             S-><A>|~
+	     A-><A'>|S
+	     A'->s|~
+* Otras Notas
+  Los espacios no son validos.
+

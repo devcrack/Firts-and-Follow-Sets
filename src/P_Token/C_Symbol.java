@@ -10,25 +10,25 @@ package P_Token;
  * @author devcrack
  */
 public class C_Symbol {
-    private String symbols;
+    protected String symbol;
     
     public C_Symbol()
     {
-        this.symbols = new String();
+        this.symbol = new String();
     }
 
     /**
      * @return the simbolos
      */
     public String getSymbol() {
-        return symbols;
+        return symbol;
     }
 
     /**
      * @param simbolos the simbolos to set
      */
-    public void setSimbolos(String simbolos) {
-        this.symbols = simbolos;
+    public void setSymbol(String simbolos) {
+        this.symbol = simbolos;
     }
     
 }
