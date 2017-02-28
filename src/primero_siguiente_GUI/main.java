@@ -31,7 +31,6 @@ public class main extends javax.swing.JFrame {
      */
     public main() {
         initComponents();
-        this.n_error = 0;
     }
 
     /**
@@ -46,8 +45,6 @@ public class main extends javax.swing.JFrame {
         jPanel_Work_Field = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTxt_Area_wrk_field = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
         jBtt_Iniciar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -86,10 +83,6 @@ public class main extends javax.swing.JFrame {
             jPanel_Work_FieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
         );
-
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
 
         jBtt_Iniciar.setText("Iniciar");
 
@@ -145,9 +138,7 @@ public class main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel_Work_Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtt_Iniciar)
@@ -156,13 +147,8 @@ public class main extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel_Work_Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(jPanel_Work_Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jBtt_Iniciar)
                 .addContainerGap())
@@ -218,7 +204,6 @@ public class main extends javax.swing.JFrame {
                
                 lines = this.jTxt_Area_wrk_field.getText().split("\n");
                 flag = C_Production.check_production(lines[lines.length - 1]);
-                this.jTextArea2.setText(String.valueOf(flag));
                 this.jTxt_Area_wrk_field.setEditable(flag);
                 
                 if(flag)
@@ -227,7 +212,7 @@ public class main extends javax.swing.JFrame {
                     nw_pr.load_production(lines[lines.length - 1]);
                 }
                 else
-                {
+                {                    
                     Object[] options = {"OK"};
                     this.n_error = JOptionPane.showOptionDialog(this,
                             "Error en el formato de la produccion",
@@ -235,7 +220,6 @@ public class main extends javax.swing.JFrame {
                             JOptionPane.ERROR_MESSAGE, null, options, options[0]);
                     if( n_error == JOptionPane.OK_OPTION)
                         this.jTxt_Area_wrk_field.getCaret().setVisible(true);
-                    n_error = 0;
                 }
             }
             else
@@ -394,8 +378,6 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu_Aiuda;
     private javax.swing.JPanel jPanel_Work_Field;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTxt_Area_wrk_field;
     // End of variables declaration//GEN-END:variables
 }

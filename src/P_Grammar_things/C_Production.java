@@ -96,7 +96,12 @@ public class C_Production {
         
         nw_token = new C_Token();
         nw_token.getNt().setSymbol(pr[0]);
-        int dmb = 0;
+        
+        for(char c: pr[1].toCharArray())
+        {
+            
+        }
+        
     }
 }
 
