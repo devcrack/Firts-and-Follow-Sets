@@ -209,7 +209,7 @@ public class main extends javax.swing.JFrame {
                 if(flag)
                 {
                     C_Production nw_pr = new C_Production();
-                    nw_pr.load_production(lines[lines.length - 1]);
+                   // nw_pr.load_production(lines[lines.length - 1]);
                 }
                 else
                 {                    

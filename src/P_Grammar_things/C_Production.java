@@ -89,20 +89,20 @@ public class C_Production {
         return cc;
     }
     
-    public void load_production(String str)
-    {
-        C_Token nw_token; 
-        String[] pr = str.split("->");
-        
-        nw_token = new C_Token();
-        nw_token.getNt().setSymbol(pr[0]);
-        
-        for(char c: pr[1].toCharArray())
-        {
-            
-        }
-        
-    }
+//    public void load_production(String str)
+//    {
+//        C_Token nw_token; 
+//        String[] pr = str.split("->");
+//        
+//        nw_token = new C_Token();
+//        nw_token.getNt().setSymbol(pr[0]);
+//        
+//        for(char c: pr[1].toCharArray())
+//        {
+//            
+//        }
+//        
+//    }
 }
 
 

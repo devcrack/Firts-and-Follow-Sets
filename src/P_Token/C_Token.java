@@ -23,14 +23,14 @@ public class C_Token
     /**
      * @return the nt
      */
-    public C_NT getNt() {
-        return nt;
+    public String getNt() {
+        return nt.get_NT();
     }
 
     /**
      * @return the t
      */
-    public C_T getT() {
-        return t;
+    public String getT() {
+        return t.get_Terminal();
     }
 }
