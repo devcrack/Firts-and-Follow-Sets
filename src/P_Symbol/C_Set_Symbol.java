@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package P_Token;
+package P_Symbol;
 
 /**
  *
  * @author devcrack
  */
-public class C_Token 
+public class C_Set_Symbol 
 {
     private C_NT nt;
     private C_T   t;
     
-    public C_Token()
+    public C_Set_Symbol()
     {
         this.nt = new C_NT();
         this.t = new C_T();

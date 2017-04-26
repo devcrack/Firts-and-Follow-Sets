@@ -5,7 +5,7 @@
  */
 package P_Grammar_things;
 
-import P_Token.C_Token;
+import P_Symbol.C_Set_Symbol;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,21 +15,21 @@ import java.util.regex.Pattern;
  * @author devcrack
  */
 public class C_Production {
-    private ArrayList<C_Token>left;
-    private ArrayList<C_Token>right;
+    private ArrayList<C_Set_Symbol>left;
+    private ArrayList<C_Set_Symbol>right;
     
     
     public C_Production()
     {
-        this.left = new ArrayList<C_Token>();
-        this.right = new ArrayList<C_Token>();
+        this.left = new ArrayList<C_Set_Symbol>();
+        this.right = new ArrayList<C_Set_Symbol>();
     }
 
     
     /**
      * @return the left
      */
-    public ArrayList<C_Token> getLeft() {
+    public ArrayList<C_Set_Symbol> getLeft() {
         return left;
     }
     
@@ -37,7 +37,7 @@ public class C_Production {
     /**
      * @return the right
      */
-    public ArrayList<C_Token> getRight() {
+    public ArrayList<C_Set_Symbol> getRight() {
         return right;
     }
     
@@ -89,20 +89,52 @@ public class C_Production {
         return cc;
     }
     
-//    public void load_production(String str)
-//    {
-//        C_Token nw_token; 
-//        String[] pr = str.split("->");
-//        
-//        nw_token = new C_Token();
-//        nw_token.getNt().setSymbol(pr[0]);
-//        
-//        for(char c: pr[1].toCharArray())
-//        {
-//            
-//        }
-//        
-//    }
+    
+    public void ld_production(String str)
+    {
+        char crrt_symbol;
+        StringBuilder str_blr = new StringBuilder();
+        
+        for(int i = 0; i < str.length(); i++)
+        {
+            
+            crrt_symbol = str.charAt(i);
+           int j;
+            j = 0;
+            if( (this.is_Metacharecter(crrt_symbol) == true && i > 0 && str.charAt(i - 1) == '\\') || is_valid_symbol(crrt_symbol))
+                    str_blr.append(crrt_symbol);
+        }
+    }
+    
+    private boolean is_Metacharecter(char c)
+    {
+        String metacharacters =  " + * < > | \\\\";
+        
+        if(metacharacters.contains("" + c + ""))
+             return true;
+        else 
+            return false;
+        //return (metacharacters.contains("" + c + "")) ?true : false;
+    }
+    
+    private boolean is_reserve_symbol(char c)
+    {
+        String reserve_symbol =  "| < >";
+        
+        if(reserve_symbol.contains("" + c + ""))
+             return true;
+        else 
+            return false;        
+    }
+    
+    private boolean is_valid_symbol(char c)
+    {
+        if((c >= '0' && c <= '9') || c == '\'' || c == '~')
+            return true;
+        if( (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+            return true;
+        return false;
+    }
 }
 
 

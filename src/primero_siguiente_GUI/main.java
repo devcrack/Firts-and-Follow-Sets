@@ -335,8 +335,15 @@ public class main extends javax.swing.JFrame {
         dlg.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    
     private void jBtt_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtt_IniciarActionPerformed
-        // TODO add your handling code here:
+        C_Production nw_pr;
+        
+        for(String line : this.jTxt_Area_wrk_field.getText().split("\n"))//Start to read lines for characters flow and load these in a production.
+        {
+            nw_pr = new C_Production();
+            nw_pr.ld_production(line);
+        }
     }//GEN-LAST:event_jBtt_IniciarActionPerformed
 
     
