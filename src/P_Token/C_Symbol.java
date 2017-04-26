@@ -27,8 +27,8 @@ public class C_Symbol {
     /**
      * @param simbolos the simbolos to set
      */
-    public void setSymbol(String simbolos) {
-        this.symbol = simbolos;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
     
 }

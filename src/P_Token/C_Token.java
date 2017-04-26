@@ -31,6 +31,6 @@ public class C_Token
      * @return the t
      */
     public String getT() {
-        return t.get_Terminal();
+        return t.get_CT();
     }
 }

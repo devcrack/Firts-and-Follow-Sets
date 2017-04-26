@@ -10,6 +10,7 @@ package P_Token;
  * @author devcrack
  */
 public class C_NT extends C_Symbol { 
+    
     public C_NT(){ 
         super();
     } 

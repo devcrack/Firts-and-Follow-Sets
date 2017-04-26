@@ -85,6 +85,11 @@ public class main extends javax.swing.JFrame {
         );
 
         jBtt_Iniciar.setText("Iniciar");
+        jBtt_Iniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtt_IniciarActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -329,6 +334,10 @@ public class main extends javax.swing.JFrame {
         dlg = new Aiuda(this, rootPaneCheckingEnabled);
         dlg.show();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jBtt_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtt_IniciarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtt_IniciarActionPerformed
 
     
     /**
