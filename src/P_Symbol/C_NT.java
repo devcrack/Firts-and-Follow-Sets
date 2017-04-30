@@ -9,14 +9,14 @@ package P_Symbol;
  *
  * @author devcrack
  */
-public class C_NT extends C_Symbol { 
+public class C_NT extends C_Atomic_Symbol { 
     
     public C_NT(){ 
         super();
     } 
     
     public String get_NT() {
-        return super.getSymbol();
+        return super.get_Atomic_Symbol();
     }
 }
 
