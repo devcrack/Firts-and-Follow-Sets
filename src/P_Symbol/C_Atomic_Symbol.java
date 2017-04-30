@@ -30,4 +30,14 @@ public class C_Atomic_Symbol {
     public void set_Atomic_Symbol(String symbol) {
         this.symbol = symbol;
     }
+    
+    protected boolean is_META_character()
+    {
+        String metacharacters =  " + * < > | \\\\";
+        
+        if(metacharacters.contains(this.symbol))
+             return true;
+        else 
+            return false;
+    }
 }

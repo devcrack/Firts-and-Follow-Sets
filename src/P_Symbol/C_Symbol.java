@@ -33,7 +33,7 @@ public class C_Symbol
      * @return the t
      */
     public String getT() {
-        return t.get_CT();
+        return t.get_T();
     }
     
     
@@ -58,8 +58,8 @@ public class C_Symbol
     /**
      * @return the epsilon
      */
-    public C_Epsilon getEpsilon() {
-        return epsilon;
+    public String getEpsilon() {
+        return epsilon.getEpsilon();
     }
 
     /**
@@ -69,4 +69,7 @@ public class C_Symbol
         this.epsilon.set_Atomic_Symbol(s_epsilon);
     }
     
+    public boolean is_NT_EMPTY() { return (this.nt.get_NT().length()  == 0) ? true : false; }
+    public boolean is_T_EMPTY() { return (this.t.get_T().length()  == 0) ? true : false; }    
+    public boolean TERMINAL_is_Metacharecter() { return this.t.is_META_character();}
 }

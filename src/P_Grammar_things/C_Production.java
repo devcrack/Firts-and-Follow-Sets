@@ -145,23 +145,15 @@ public class C_Production {
         else 
             return false;
         //return (metacharacters.contains("" + c + "")) ?true : false;
-    }
-    
-    private boolean is_reserve_symbol(char c)
-    {
-        String reserve_symbol =  "| < >";
-        
-        if(reserve_symbol.contains("" + c + ""))
-             return true;
-        else 
-            return false;        
-    }
+    }   
     
     private boolean is_valid_symbol(char c)
     {
-        if((c >= '0' && c <= '9') || c == '\'' || c == '~')
+        if(c >= '0' && c <= '9') 
             return true;
         if( (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+            return true;
+        if(c == '\'' || c == '~' || c == '(' || c == ')')
             return true;
         return false;
     }

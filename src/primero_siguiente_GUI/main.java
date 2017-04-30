@@ -7,6 +7,7 @@ package primero_siguiente_GUI;
 
 import P_Grammar_things.C_Grammar;
 import P_Grammar_things.C_Production;
+import P_Symbol.C_Symbol;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.BufferedReader;
@@ -275,6 +276,11 @@ public class main extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_jMenIt_guardarActionPerformed
 
+    /**
+     * Method that is triggered  by the button "Abir" of menu. This method 
+     * is for open a file and then print it in the TextField.
+     * @param evt 
+     */
     private void jMenItem_AbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenItem_AbrirActionPerformed
         JFileChooser jFrame_openFile = new JFileChooser();
         String str;
@@ -343,17 +349,39 @@ public class main extends javax.swing.JFrame {
         String[] split_production; 
         
         this.grammar = new C_Grammar();
-        for(String line : this.jTxt_Area_wrk_field.getText().split("\n"))//Start to read lines for characters flow and load these in a production.
-        {
+        for(String line : this.jTxt_Area_wrk_field.getText().split("\n")) { //Start to read lines for characters flow and load these in a production.
             split_production = line.split("-(\\s)*>");            
-            nw_pr = new C_Production();
-            nw_pr.set_Left(split_production[0]); // Load the Left side of the production;            
-            nw_pr.ld_production(split_production[1]);// Load the rest of the characters, i mean the right side of the production;
-            this.grammar.add_production(nw_pr);//Append the production to the grammar
-            
+            this.grammar.load_grammar(split_production[0], split_production[1]);
         }
+        this.print_grammar();
     }//GEN-LAST:event_jBtt_IniciarActionPerformed
 
+    
+    private void print_grammar()
+    {
+        this.jTxt_Area_wrk_field.append("\n\n");        
+        for(C_Production pr : this.grammar.getGrammar())
+        {
+            //print the left side of the production;
+            this.jTxt_Area_wrk_field.append(pr.getLeft().get(0).getNt());
+            //printing the script and arrow
+            this.jTxt_Area_wrk_field.append("->");
+            //printing the rest of grammar
+            for(C_Symbol smbl : pr.getRight()) {
+                if(!smbl.is_NT_EMPTY()) 
+                    this.jTxt_Area_wrk_field.append("<" + smbl.getNt() + ">");
+                else    
+                    if( !smbl.is_T_EMPTY()) 
+                        if(smbl.TERMINAL_is_Metacharecter()) 
+                            this.jTxt_Area_wrk_field.append("\\"+smbl.getT());
+                        else 
+                            this.jTxt_Area_wrk_field.append(smbl.getT());
+                    else 
+                        this.jTxt_Area_wrk_field.append(smbl.getEpsilon());                                            
+            }
+            this.jTxt_Area_wrk_field.append("\n");        
+        }
+    }
     
     /**
      * @param args the command line arguments

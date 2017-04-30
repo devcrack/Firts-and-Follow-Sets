@@ -18,7 +18,7 @@ public class C_T  extends C_Atomic_Symbol {
      * Gets the terminal 
      * @return 
      */
-    public String get_CT() {
+    public String get_T() {
         return super.get_Atomic_Symbol();
     }
 }

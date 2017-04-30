@@ -34,4 +34,30 @@ public class C_Grammar {
         this.grammar.add(pr);
     }
     
+    public void load_grammar(String NT, String rest_of)
+    {
+        StringBuilder bldr = new StringBuilder();
+        char c = '\0';
+        
+        for(int i = 0; i < rest_of.length(); i++) {
+            c = rest_of.charAt(i);
+            if( c == '|' && i > 0  && rest_of.charAt(i -1) != '\\')
+            {
+                this.ld_production(NT, bldr.toString());
+                bldr = new StringBuilder();
+            }
+            else
+                bldr.append(c);                
+        }
+        if(bldr.length() > 0)
+            this.ld_production(NT, bldr.toString());
+    }
+    
+    private void ld_production(String NoT, String right_sd) {
+        C_Production nw_pr = new C_Production();
+        nw_pr.set_Left(NoT);
+        nw_pr.ld_production(right_sd);
+        this.grammar.add(nw_pr);
+    }
+    
 }
