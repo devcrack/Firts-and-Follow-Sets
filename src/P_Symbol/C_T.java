@@ -10,7 +10,7 @@ package P_Symbol;
  *
  * @author devcrack
  */
-public class C_T  extends C_Symbol { 
+public class C_T  extends C_Atomic_Symbol { 
     
     public C_T(){ super(); } 
     
@@ -19,6 +19,6 @@ public class C_T  extends C_Symbol {
      * @return 
      */
     public String get_CT() {
-        return super.getSymbol();
+        return super.get_Atomic_Symbol();
     }
 }
