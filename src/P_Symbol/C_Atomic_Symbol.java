@@ -9,10 +9,10 @@ package P_Symbol;
  *
  * @author devcrack
  */
-public class C_Symbol {
+public class C_Atomic_Symbol {
     protected String symbol;
     
-    public C_Symbol()
+    public C_Atomic_Symbol()
     {
         this.symbol = new String();
     }
@@ -20,15 +20,14 @@ public class C_Symbol {
     /**
      * @return the simbolos
      */
-    public String getSymbol() {
+    public String get_Atomic_Symbol() {
         return symbol;
     }
 
     /**
      * @param simbolos the simbolos to set
      */
-    public void setSymbol(String symbol) {
+    public void set_Atomic_Symbol(String symbol) {
         this.symbol = symbol;
     }
-    
 }
