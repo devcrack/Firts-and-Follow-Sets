@@ -9,26 +9,28 @@ package P_Symbol;
  *
  * @author devcrack
  */
-public class C_Symbol {
-    protected String symbol;
+public class C_Set_Symbol 
+{
+    private C_NT nt;
+    private C_T   t;
     
-    public C_Symbol()
+    public C_Set_Symbol()
     {
-        this.symbol = new String();
+        this.nt = new C_NT();
+        this.t = new C_T();
     }
 
     /**
-     * @return the simbolos
+     * @return the nt
      */
-    public String getSymbol() {
-        return symbol;
+    public String getNt() {
+        return nt.get_NT();
     }
 
     /**
-     * @param simbolos the simbolos to set
+     * @return the t
      */
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
+    public String getT() {
+        return t.get_CT();
     }
-    
 }

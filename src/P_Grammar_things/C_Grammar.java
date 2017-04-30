@@ -29,4 +29,9 @@ public class C_Grammar {
     public void setGrammar(ArrayList<C_Production> grammar) {
         this.grammar = grammar;
     }
+    
+    public void add_production(C_Production pr) {
+        this.grammar.add(pr);
+    }
+    
 }
