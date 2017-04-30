@@ -5,6 +5,7 @@
  */
 package primero_siguiente_GUI;
 
+import P_Grammar_things.C_Grammar;
 import P_Grammar_things.C_Production;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -26,6 +27,7 @@ import jdk.jfr.events.FileReadEvent;
  */
 public class main extends javax.swing.JFrame {
     int n_error;
+    C_Grammar grammar;
     /**
      * Creates new form main
      */
@@ -338,11 +340,17 @@ public class main extends javax.swing.JFrame {
     
     private void jBtt_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtt_IniciarActionPerformed
         C_Production nw_pr;
+        String[] split_production; 
         
+        this.grammar = new C_Grammar();
         for(String line : this.jTxt_Area_wrk_field.getText().split("\n"))//Start to read lines for characters flow and load these in a production.
         {
+            split_production = line.split("-(\\s)*>");            
             nw_pr = new C_Production();
-            nw_pr.ld_production(line);
+            nw_pr.set_Left(split_production[0]); // Load the Left side of the production;            
+            nw_pr.ld_production(split_production[1]);// Load the rest of the characters, i mean the right side of the production;
+            this.grammar.add_production(nw_pr);//Append the production to the grammar
+            
         }
     }//GEN-LAST:event_jBtt_IniciarActionPerformed
 
