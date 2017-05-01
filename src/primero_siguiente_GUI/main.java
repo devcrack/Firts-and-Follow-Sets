@@ -80,11 +80,15 @@ public class main extends javax.swing.JFrame {
         jPanel_Work_Field.setLayout(jPanel_Work_FieldLayout);
         jPanel_Work_FieldLayout.setHorizontalGroup(
             jPanel_Work_FieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+            .addGroup(jPanel_Work_FieldLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel_Work_FieldLayout.setVerticalGroup(
             jPanel_Work_FieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+            .addGroup(jPanel_Work_FieldLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jBtt_Iniciar.setText("Iniciar");
@@ -146,7 +150,7 @@ public class main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel_Work_Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(314, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtt_Iniciar)
@@ -157,7 +161,7 @@ public class main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel_Work_Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBtt_Iniciar)
                 .addContainerGap())
         );
@@ -353,7 +357,18 @@ public class main extends javax.swing.JFrame {
             split_production = line.split("-(\\s)*>");            
             this.grammar.load_grammar(split_production[0], split_production[1]);
         }
-        this.print_grammar();
+        if(this.grammar.is_valid_grammar())
+            this.print_grammar();
+        else {
+            Object[] options = {"OK"};
+            this.n_error = JOptionPane.showOptionDialog(this,
+                    "Error Gramatica NO Valida",
+                    "ERROR", JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.ERROR_MESSAGE, null, options, options[0]);
+            if( n_error == JOptionPane.OK_OPTION)
+                this.jTxt_Area_wrk_field.getCaret().setVisible(true);
+        }
+            
     }//GEN-LAST:event_jBtt_IniciarActionPerformed
 
     
@@ -363,7 +378,7 @@ public class main extends javax.swing.JFrame {
         for(C_Production pr : this.grammar.getGrammar())
         {
             //print the left side of the production;
-            this.jTxt_Area_wrk_field.append(pr.getLeft().get(0).getNt());
+            this.jTxt_Area_wrk_field.append(pr.getLeft());
             //printing the script and arrow
             this.jTxt_Area_wrk_field.append("->");
             //printing the rest of grammar

@@ -26,14 +26,11 @@ public class C_Production {
     }
 
     
-    /**
-     * @return the left
-     */
-    public ArrayList<C_Symbol> getLeft() {
-        return left;
-    }
-    
 
+    
+    public String getLeft() {
+        return left.get(0).getNt();
+    }
     /**
      * @return the right
      */
@@ -138,7 +135,7 @@ public class C_Production {
     
     private boolean is_Metacharecter(char c)
     {
-        String metacharacters =  " + * < > | \\\\";
+        String metacharacters =  "- + * < > | \\\\";
         
         if(metacharacters.contains("" + c + ""))
              return true;

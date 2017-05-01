@@ -5,6 +5,7 @@
  */
 package P_Grammar_things;
 
+import P_Symbol.C_Symbol;
 import java.util.ArrayList;
 
 /**
@@ -60,4 +61,22 @@ public class C_Grammar {
         this.grammar.add(nw_pr);
     }
     
+    public boolean is_valid_grammar() {
+        for(C_Production pr : this.grammar) {
+            for(C_Symbol smbl : pr.getRight()) {
+                if(!smbl.is_NT_EMPTY())
+                    if(!this.check_NoT_inGrammar(smbl.getNt()))
+                        return false;
+            }
+        }
+        return true;
+    }
+    
+    private boolean check_NoT_inGrammar(String NonTerminal) {
+        for(C_Production pr : this.grammar) {
+            if(pr.getLeft().compareTo(NonTerminal) == 0)
+                return true;
+        }        
+        return false;
+    }
 }

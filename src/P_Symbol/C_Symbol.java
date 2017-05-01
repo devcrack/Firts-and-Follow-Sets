@@ -68,8 +68,15 @@ public class C_Symbol
     public void setEpsilon(String s_epsilon) {
         this.epsilon.set_Atomic_Symbol(s_epsilon);
     }
-    
+    /**
+     * Determine if the Non Terminal Symbol is Empty;
+     * @return True if the Non Terminal Symbols is Empty;
+     */
     public boolean is_NT_EMPTY() { return (this.nt.get_NT().length()  == 0) ? true : false; }
+    /**
+     * Determine if the Terminal Symbols is empty;
+     * @return True if the TERMINAL symbols do not have anything.
+     */
     public boolean is_T_EMPTY() { return (this.t.get_T().length()  == 0) ? true : false; }    
     public boolean TERMINAL_is_Metacharecter() { return this.t.is_META_character();}
 }
