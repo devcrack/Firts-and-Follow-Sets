@@ -5,6 +5,7 @@
  */
 package primero_siguiente_GUI;
 
+import First_Follow.C_First_Follow;
 import P_Grammar_things.C_Grammar;
 import P_Grammar_things.C_Production;
 import P_Symbol.C_Symbol;
@@ -29,6 +30,7 @@ import jdk.jfr.events.FileReadEvent;
 public class main extends javax.swing.JFrame {
     int n_error;
     C_Grammar grammar;
+    C_First_Follow first_follow;
     /**
      * Creates new form main
      */
@@ -281,7 +283,7 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenIt_guardarActionPerformed
 
     /**
-     * Method that is triggered  by the button "Abir" of menu. This method 
+     * Method that is triggered  by the button "Abrir" of menu. This method 
      * is for open a file and then print it in the TextField.
      * @param evt 
      */
@@ -349,6 +351,23 @@ public class main extends javax.swing.JFrame {
 
     
     private void jBtt_IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtt_IniciarActionPerformed
+        this.load_grammar();
+        if(!this.grammar.is_valid_grammar())
+            this.show_Error();            
+        else 
+        {
+            this.print_grammar();
+            this.first_follow = new C_First_Follow(this.grammar);
+            this.first_follow.calculate_first_set();
+        }
+        
+    }//GEN-LAST:event_jBtt_IniciarActionPerformed
+
+    /**
+     * Start with the process of load of grammar.
+     */
+    private void load_grammar()
+    {
         C_Production nw_pr;
         String[] split_production; 
         
@@ -357,21 +376,22 @@ public class main extends javax.swing.JFrame {
             split_production = line.split("-(\\s)*>");            
             this.grammar.load_grammar(split_production[0], split_production[1]);
         }
-        if(this.grammar.is_valid_grammar())
-            this.print_grammar();
-        else {
-            Object[] options = {"OK"};
+    }
+    
+    private void show_Error()
+    {
+        Object[] options = {"OK"};
             this.n_error = JOptionPane.showOptionDialog(this,
                     "Error Gramatica NO Valida",
                     "ERROR", JOptionPane.PLAIN_MESSAGE,
                     JOptionPane.ERROR_MESSAGE, null, options, options[0]);
             if( n_error == JOptionPane.OK_OPTION)
-                this.jTxt_Area_wrk_field.getCaret().setVisible(true);
-        }
-            
-    }//GEN-LAST:event_jBtt_IniciarActionPerformed
-
+                this.jTxt_Area_wrk_field.getCaret().setVisible(true);   
+    }
     
+    /**
+     * Prints the grammar that has been loaded by the program. in the main Window Frame.
+     */
     private void print_grammar()
     {
         this.jTxt_Area_wrk_field.append("\n\n");        

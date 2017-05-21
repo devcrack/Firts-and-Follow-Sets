@@ -155,18 +155,19 @@ public class C_Production {
         return false;
     }
     
-    public void set_Left(String str_left)
-    {
+    public void set_Left(String str_left) {
         C_Symbol smbl = new C_Symbol();
         
         smbl.set_NT(str_left);
         this.left.add(smbl);
     }
+    
+    /**
+     * Gets the first Symbol if this have it directly.
+     * @return The terminal symbol if this have it directly if else returns NULL;
+     */
+    public C_Symbol get_first() {
+        C_Symbol first_smbl = this.right.get(0);
+        return (!first_smbl.is_T_EMPTY()) ? first_smbl : null;
+    }
 }
-
-
-
-
-
-
-///VeroGarcia123
